@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+</head>
+<body>
+    
+    <h1> <%= day_of_week %> </h1>
+
+    <ul>
+    <% for (i = 0; i < items_array.length ; i++ ){  %>   
+        <li> <%= items_array[i]  %> </li>   
+        <br>
+    <% }  %> 
+    </ul>
+
+    <form action="/" method="post">
+        <label for="new_item">New Item</label>
+        <br>
+        <input type="text" name="new_item" id="">
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    
+</body>
+</html>
