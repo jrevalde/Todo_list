@@ -3,6 +3,8 @@ const express = require("express");
 
 const https = require("https");
 
+const date = require(__dirname + "/date.js");
+
 const app = express();
 
 app.use(express.urlencoded({extended: true}));
@@ -16,47 +18,8 @@ let workItems = [];
 
 app.get("/", function(req, res){
 
-    
-    var today = new Date();
-
-    var options = {
-        weekday: "long",
-        day: "numeric",
-        month: "long"
-    };
-
-    var day = today.toLocaleDateString("en-US", options);
-
-    //This one way to find what day it is
-    /*var currentDay = today.getDay();
-    var day = "";
-
-    switch(currentDay){
-        case 0:
-            day = "Sunday";
-            break; 
-        case 1:
-            day = "Monday";
-            break;
-        case 2:
-            day = "Tuesday";
-            break; 
-        case 3:
-            day = "Wednesday";
-            break;
-        case 4:
-            day = "Thursday";
-            break;  
-        case 5:
-            day = "Friday";
-            break;
-        case 6:
-            day = "Saturday";
-            break;      
-        default: 
-        console.log("JUbba");                                             
-    }*/
-
+    let day = date.getDate(); //this runs the function that is bound to the date module export which is an object.
+        
     res.render('list', {listTitle : day, items_array : items});
 })
 
@@ -89,6 +52,10 @@ app.post("/work", function(req, res){
     workItems.push(item);
 
     res.redirect("/work");
+})
+
+app.get("/about", function(req, res){
+    res.render("about");
 })
 
 app.listen(3000, function(){
