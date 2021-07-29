@@ -1,3 +1,4 @@
+const { RSA_NO_PADDING } = require("constants");
 const express = require("express");
 
 const https = require("https");
@@ -6,9 +7,12 @@ const app = express();
 
 app.use(express.urlencoded({extended: true}));
 
+app.use(express.static("public")); // this enables express to server up static files at a specified folder so that we can link css, images etc. to our templates. 
+
 app.set('view engine', 'ejs');
 
 var items = [];
+let workItems = [];
 
 app.get("/", function(req, res){
 
@@ -53,15 +57,38 @@ app.get("/", function(req, res){
         console.log("JUbba");                                             
     }*/
 
-    res.render('list', {day_of_week : day, items_array : items});
+    res.render('list', {listTitle : day, items_array : items});
 })
 
 app.post("/", function(req, res){
-    var item = req.body.new_item;
-    items.push(item);
-    console.log("The items inside the array " + items);
-    res.redirect("/");
+    let item = req.body.new_item;
+    if (req.body.list === "work")
+    {
+        workItems.push(item);
+        res.redirect("/work");
+    }
+    else
+    {
+        //var item = req.body.new_item;
+        items.push(item);
+        console.log("The items inside the array " + items);
+        res.redirect("/");
+    }
+
     
+    
+})
+
+app.get("/work", function(req, res){
+    res.render("list", {listTitle: "Work List",  items_array : workItems})
+})
+
+app.post("/work", function(req, res){
+    
+
+    workItems.push(item);
+
+    res.redirect("/work");
 })
 
 app.listen(3000, function(){

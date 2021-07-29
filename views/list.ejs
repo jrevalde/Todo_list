@@ -1,29 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do List</title>
-</head>
-<body>
+<%- include("header") -%> 
     
-    <h1> <%= day_of_week %> </h1>
+    <div class="box" id="heading">
+        <h1> <%= listTitle %> </h1>
+    </div>
 
-    <ul>
-    <% for (i = 0; i < items_array.length ; i++ ){  %>   
-        <li> <%= items_array[i]  %> </li>   
-        <br>
-    <% }  %> 
-    </ul>
+    <div class="box">
+        
+            <% for (i = 0; i < items_array.length ; i++ ){  %>   
+                <div class="item">     
+                <input type="checkbox" name="" id="">   
+                <p> <%= items_array[i]  %> </p>   
+                </div>
+            <% }  %> 
+        
 
-    <form action="/" method="post">
-        <label for="new_item">New Item</label>
-        <br>
-        <input type="text" name="new_item" id="">
-        <br>
-        <button type="submit">Submit</button>
-    </form>
-    
-</body>
-</html>
+        <form class="item" action="/" method="post">
+            <!--<label for="new_item">New Item</label>-->
+            
+            <input type="text" name="new_item" id="" placeholder="New Item" autocomplete="off"> 
+            <br>
+            <button type="submit" name="list" value="<%= listTitle %>"> + </button>
+        </form>
+    </div>
+
+<%- include("footer") -%> 
